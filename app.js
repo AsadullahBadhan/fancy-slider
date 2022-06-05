@@ -44,12 +44,14 @@ const selectItem = (event, img) => {
   if (item === -1) {
     sliders.push(img);
   } else {
-    alert('Hey, Already added !')
+    element.classList.toggle('added');
+    sliders.splice(item, 1);
   }
 }
 var timer
 const createSlider = () => {
   const duration = document.getElementById('duration').value || 1000;
+  // check valid duration time
   if (duration > 0) {
     // check slider image length
     if (sliders.length < 2) {
@@ -61,9 +63,9 @@ const createSlider = () => {
     const prevNext = document.createElement('div');
     prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
     prevNext.innerHTML = ` 
-  <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
-  <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
-  `;
+        <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
+        <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
+      `;
 
     sliderContainer.appendChild(prevNext)
     document.querySelector('.main').style.display = 'block';
@@ -73,8 +75,8 @@ const createSlider = () => {
       let item = document.createElement('div')
       item.className = "slider-item";
       item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
+                        src="${slide}"
+                        alt="">`;
       sliderContainer.appendChild(item)
     })
     changeSlide(0)
