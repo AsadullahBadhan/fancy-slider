@@ -5,6 +5,7 @@ const search = document.getElementById('search');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const categoryBtn = document.querySelectorAll('#category .btn');
 // selected image 
 let sliders = [];
 
@@ -117,11 +118,15 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
-searchBtn.addEventListener('click', function () {
+function newSliderImage(query) {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
-  getImages(search.value);
+  getImages(query);
   sliders.length = 0;
+}
+
+searchBtn.addEventListener('click', function () {
+  newSliderImage(search.value)
 })
 
 sliderBtn.addEventListener('click', function () {
@@ -130,6 +135,12 @@ sliderBtn.addEventListener('click', function () {
 
 search.addEventListener('keyup', function (e) {
   if (e.code === 'Enter') {
-    getImages(search.value)
+    newSliderImage(search.value)
   }
 })
+
+categoryBtn.forEach(category => {
+  category.addEventListener('click', function (e) {
+    newSliderImage(e.target.innerText);
+  });
+});
